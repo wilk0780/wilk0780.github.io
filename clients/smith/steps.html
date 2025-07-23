@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Select Your Steps – Aqualis Pools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-image: url('/logo.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 1700px;
+      background-attachment: fixed;
+      text-align: center;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.7);
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+
+    h1 {
+      font-size: 3.8em;
+      font-family: 'Great Vibes', cursive;
+      margin-bottom: 20px;
+    }
+
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .option {
+      cursor: pointer;
+      border: 3px solid transparent;
+      border-radius: 8px;
+      padding: 10px;
+      transition: border 0.3s ease;
+    }
+
+    .option.selected {
+      border-color: #fff;
+    }
+
+    .option img {
+      max-width: 300px;
+      height: auto;
+      display: block;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+
+    .label {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.5em;
+    }
+
+    .save-button {
+      margin-top: 40px;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: white;
+      background-color: transparent;
+      border: 2px solid white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .save-button:hover {
+      background-color: white;
+      color: black;
+    }
+    @media (max-width: 600px) {
+      body {
+        background-size: 200vmin;
+      }
+
+      h1 {
+        font-size: 2.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>Select Your Steps</h1>
+    <div class="options" id="stepOptions"></div>
+    <button class="save-button" onclick="saveSelection()">Save Selection</button>
+  </div>
+
+  <script>
+    const imageFolder = "/selections/stairs/";
+    const steps = [
+      { file: "8x8_tanning_ledge_steps-2995.png", label: "8x8 Tanning Ledge Steps $2995" },
+      { file: "8_liner_steps-2550.png", label: "8' Liner Steps $2550" },
+      { file: "Corner_steps-2495.png", label: "Corner Steps $2495" },
+      { file: "Full_length_liner_covered_steps-2995.png", label: "Full Length Liner Covered Steps $2995" },
+      { file: "Tanning_ledge_with_corner_steps-3995.png", label: "Tanning Ledge With Corner Steps $3995" },
+      { file: "Centered_poly_steps.png", label: "Centered Poly Steps" },
+      { file: "Left.png", label: "Left Poly Steps" },
+      { file: "Right.png", label: "Right Poly Steps" }
+    ];
+
+    const container = document.getElementById("stepOptions");
+    let selected = "";
+
+    steps.forEach(({ file, label }) => {
+      const div = document.createElement("div");
+      div.className = "option";
+      div.innerHTML = `
+        <img src="${imageFolder + file}" alt="${label}">
+        <div class="label">${label}</div>
+      `;
+      div.addEventListener("click", () => {
+        document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
+        div.classList.add("selected");
+        selected = label;
+      });
+      container.appendChild(div);
+    });
+
+    function saveSelection() {
+      if (!selected) {
+        alert("Please select a step option.");
+        return;
+      }
+
+      fetch("https://api.jsonbin.io/v3/b/681df1438a456b79669a5caa/latest", {
+        headers: { "X-Master-Key": "$2a$10$bkmgi4X4rDzDliZUTJq3QOfRQOllUAzpMekm2xzZPa1BoHQvbYbIO" }
+      })
+      .then(res => res.json())
+      .then(data => {
+        const record = data.record || {};
+        record.rains = record.rains || {};
+        record.rains.stair = selected;
+
+        return fetch("https://api.jsonbin.io/v3/b/681df1438a456b79669a5caa", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Master-Key": "$2a$10$bkmgi4X4rDzDliZUTJq3QOfRQOllUAzpMekm2xzZPa1BoHQvbYbIO"
+          },
+          body: JSON.stringify(record)
+        });
+      })
+      .then(() => window.location.href = "index.html")
+      .catch(err => {
+        console.error("Save failed", err);
+        alert("Failed to save selection.");
+      });
+    }
+  </script>
+</body>
+</html>
