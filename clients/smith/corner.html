@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Select Corner Radius – Rains</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      background-image: url('/logo.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 1700px;
+      background-attachment: fixed;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      text-align: center;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.7);
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.8em;
+      font-weight: 300;
+      color: #ffffff;
+      margin-bottom: 30px;
+      letter-spacing: 0.5px;
+    }
+
+    .image-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .image-grid img {
+      width: 220px;
+      height: auto;
+      border-radius: 6px;
+      border: 4px solid transparent;
+      cursor: pointer;
+      transition: border 0.3s;
+    }
+
+    .image-grid img.selected {
+      border-color: #00bfff;
+    }
+
+    .label {
+      font-family: 'Great Vibes', cursive;
+      margin-top: 10px;
+      font-size: 18px;
+      color: #ffffff;
+    }
+
+    .wrapper {
+      display: inline-block;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 22px;
+      font-size: 16px;
+      background-color: #00bfff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #009acd;
+    }
+@media (max-width: 600px) {
+      body {
+        background-size: 200vmin;
+      }
+
+      h1 {
+        font-size: 2.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>Select Your Corner Radius</h1>
+    <div class="image-grid" id="grid"></div>
+    <button onclick="saveSelection()">Save Selection</button>
+  </div>
+
+  <script>
+    const imageFolder = "/selections/corners/";
+    const imageList = [
+      "Six_inch.png",
+      "Two_foot.png",
+      "Four_foot.JPG"
+    ];
+    const clientKey = "rains";
+    const binUrl = "https://api.jsonbin.io/v3/b/681df1438a456b79669a5caa";
+    const apiKey = "$2a$10$bkmgi4X4rDzDliZUTJq3QOfRQOllUAzpMekm2xzZPa1BoHQvbYbIO";
+
+    let selectedOption = "";
+
+    function formatFilename(filename) {
+      return filename.split('.')[0].split('_')
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+    }
+
+    const grid = document.getElementById('grid');
+    imageList.forEach(filename => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'wrapper';
+
+      const img = document.createElement('img');
+      img.src = imageFolder + filename;
+      img.alt = filename;
+      img.onclick = () => {
+        document.querySelectorAll('.image-grid img').forEach(i => i.classList.remove('selected'));
+        img.classList.add('selected');
+        selectedOption = formatFilename(filename);
+      };
+
+      const label = document.createElement('div');
+      label.className = 'label';
+      label.textContent = formatFilename(filename);
+
+      wrapper.appendChild(img);
+      wrapper.appendChild(label);
+      grid.appendChild(wrapper);
+    });
+
+    async function saveSelection() {
+      if (!selectedOption) {
+        alert("Please select a corner radius.");
+        return;
+      }
+
+      try {
+        const getRes = await fetch(`${binUrl}/latest`, {
+          headers: { 'X-Master-Key': apiKey }
+        });
+        const full = await getRes.json();
+        const record = full.record || {};
+
+        record[clientKey] = record[clientKey] || {};
+        record[clientKey].corner = selectedOption;
+
+        const putRes = await fetch(binUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Master-Key": apiKey
+          },
+          body: JSON.stringify(record)
+        });
+
+        if (putRes.ok) {
+          alert("Corner radius saved!");
+          window.location.href = "index.html";
+        } else {
+          alert("Error saving.");
+        }
+      } catch (err) {
+        alert("Error: " + err.message);
+      }
+    }
+  </script>
+</body>
+</html>
