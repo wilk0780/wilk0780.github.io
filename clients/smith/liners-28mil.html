@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select 28mil Liner – Aqualis Pools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      background-image: url('https://aqualispools.com/logo.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 1700px;
+      background-attachment: fixed;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      text-align: center;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.7);
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.0em;
+      font-weight: 300;
+      color: #ffffff;
+      margin-bottom: 30px;
+      letter-spacing: 0.5px;
+    }
+
+    .image-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .image-grid img {
+      width: 220px;
+      height: auto;
+      border-radius: 6px;
+      border: 4px solid transparent;
+      cursor: pointer;
+      transition: border 0.3s;
+    }
+
+    .image-grid img.selected {
+      border-color: #00f0ff;
+    }
+
+    .label {
+      font-family: 'Great Vibes', cursive;
+      margin-top: 10px;
+      font-size: 22px;
+      color: #ffffff;
+    }
+
+    .wrapper {
+      display: inline-block;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 22px;
+      font-size: 16px;
+      background-color: #00f0ff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00b9cd;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        background-size: 200vmin;
+      }
+
+      h1 {
+        font-size: 2.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>Select Your 28mil Liner</h1>
+    <div class="image-grid">
+  <div class="wrapper">
+    <img src="/selections/liners/28mil/HD_electric_breking_seawall-1695.png" data-value="HD Electric Breking Seawall $1695" onclick="selectOption(this)">
+    <div class="label">HD Electric Breking Seawall $1695</div>
+  </div>
+  <div class="wrapper">
+    <img src="/selections/liners/28mil/HD_electric_oxford-1395.png" data-value="HD Electric Oxford $1395" onclick="selectOption(this)">
+    <div class="label">HD Electric Oxford $1395</div>
+  </div>
+  <div class="wrapper">
+    <img src="/selections/liners/28mil/Insignia_HD_aquashift-1395.png" data-value="Insignia HD Aquashift $1395" onclick="selectOption(this)">
+    <div class="label">Insignia HD Aquashift $1395</div>
+  </div>
+  <div class="wrapper">
+    <img src="/selections/liners/28mil/beach_house-1395.png" data-value="Beach House $1395" onclick="selectOption(this)">
+    <div class="label">Beach House $1395</div>
+  </div>
+  <div class="wrapper">
+    <img src="/selections/liners/28mil/butterfly_effect_aqua_shimmer-1395.png" data-value="Butterfly Effect Aqua Shimmer $1395" onclick="selectOption(this)">
+    <div class="label">Butterfly Effect Aqua Shimmer $1395</div>
+  </div>
+  <div class="wrapper">
+    <img src="/selections/liners/28mil/cambridge_aquarius-1395.png" data-value="Cambridge Aquarius $1395" onclick="selectOption(this)">
+    <div class="label">Cambridge Aquarius $1395</div>
+  </div>
+  <div class="wrapper">
+    <img src="/selections/liners/28mil/cirali_beach_gold-1695.png" data-value="Ciralci Beach Gold $1695" onclick="selectOption(this)">
+    <div class="label">Ciralci Beach Gold $1695</div>
+  </div>
+  <div class="wrapper">
+    <img src="/selections/liners/28mil/clarkson_blue_beach_pebble-1395.png" data-value="Clarkson Blue Beach Pebble $1395" onclick="selectOption(this)">
+    <div class="label">Clarkson Blue Beach Pebble $1395</div>
+  </div>
+  <div class="wrapper">
+    <img src="/selections/liners/28mil/collage_mosaic-1395.png" data-value="Collage Mosaic $1395" onclick="selectOption(this)">
+    <div class="label">Collage Mosaic $1395</div>
+  </div>
+  <div class="wrapper">
+    <img src="/selections/liners/28mil/hamlin_blue_beach_pebble-1395.png" data-value="Hamlin Blue Beach Pebble $1395" onclick="selectOption(this)">
+    <div class="label">Hamlin Blue Beach Pebble $1395</div>
+  </div>
+  <div class="wrapper">
+    <img src="/selections/liners/28mil/hamony_green_slate-1395.png" data-value="Harmony Green Slate $1395" onclick="selectOption(this)">
+    <div class="label">Harmony Green Slate $1395</div>
+  </div>
+  <div class="wrapper">
+    <img src="/selections/liners/28mil/harmony_hde_blue-1695.png" data-value="Harmony HDE Blue $1695" onclick="selectOption(this)">
+    <div class="label">Harmony HDE Blue $1695</div>
+  </div>
+  <div class="wrapper">
+    <img src="/selections/liners/28mil/harmony_medium_blue-1695.png" data-value="Harmony Medium Blue $1695" onclick="selectOption(this)">
+    <div class="label">Harmony Medium Blue $1695</div>
+  </div>
+  <div class="wrapper">
+    <img src="/selections/liners/28mil/skyline_mosaic_allover-1395.png" data-value="Skyline Mosaic Allover $1395" onclick="selectOption(this)">
+    <div class="label">Skyline Mosaic Allover $1395</div>
+  </div>
+</div>
+    </div>
+    <button onclick="saveSelection()">Save Selection</button>
+  </div>
+
+  <script>
+    const clientKey = "rains";
+    const binUrl = "https://api.jsonbin.io/v3/b/681df1438a456b79669a5caa";
+    const apiKey = "$2a$10$bkmgi4X4rDzDliZUTJq3QOfRQOllUAzpMekm2xzZPa1BoHQvbYbIO";
+
+    let selectedOption = "";
+
+    function selectOption(img) {
+      document.querySelectorAll('.image-grid img').forEach(i => i.classList.remove('selected'));
+      img.classList.add('selected');
+      selectedOption = img.getAttribute("data-value");
+    }
+
+    async function saveSelection() {
+      if (!selectedOption) {
+        alert("Please select a liner.");
+        return;
+      }
+
+      try {
+        const getRes = await fetch(binUrl, {
+          headers: { "X-Master-Key": apiKey }
+        });
+        const full = await getRes.json();
+        const record = full.record || {};
+
+        record[clientKey] = record[clientKey] || {};
+        record[clientKey].liner = selectedOption;
+
+        const putRes = await fetch(binUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Master-Key": apiKey
+          },
+          body: JSON.stringify(record)
+        });
+
+        if (putRes.ok) {
+          alert("Saved successfully!");
+          window.location.href = "index.html";
+        } else {
+          alert("Error saving.");
+        }
+      } catch (err) {
+        alert("Error: " + err.message);
+      }
+    }
+  </script>
+</body>
+</html>
