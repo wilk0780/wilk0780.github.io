@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Select 36mil Liner – Aqualis Pools</title>
+  <title>Select Sanitizing System – Aqualis Pools</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
     body {
@@ -94,15 +94,15 @@
 </head>
 <body>
   <div class="overlay">
-    <h1>Select Your 36mil Pet Friendly Liner</h1>
+    <h1>Select Your Sanitizing System</h1>
     <div class="image-grid">
       <div class="wrapper">
-        <img src="/selections/liners/36mil/grand_carnival-2595.png" data-value="Grand Carnival $2595" onclick="selectOption(this)">
-        <div class="label">Grand Carnival $2595</div>
+        <img src="/selections/sanitizingsystem/Aqua_rite_saltwater_system-1995.png" data-value="Aqua Rite Saltwater System $1995" onclick="selectOption(this)">
+        <div class="label">Aqua Rite Saltwater System $1995</div>
       </div>
       <div class="wrapper">
-        <img src="/selections/liners/36mil/skyline_mosaic_electric-2595.png" data-value="Skyline Mosaic Electric $2595" onclick="selectOption(this)">
-        <div class="label">Skyline Mosaic Electric $2595</div>
+        <img src="/selections/sanitizingsystem/Inline_chlorinator.png" data-value="Inline Chlorinator" onclick="selectOption(this)">
+        <div class="label">Inline Chlorinator</div>
       </div>
     </div>
     <button onclick="saveSelection()">Save Selection</button>
@@ -123,7 +123,7 @@
 
     async function saveSelection() {
       if (!selectedOption) {
-        alert("Please select a liner.");
+        alert("Please select a sanitizing system.");
         return;
       }
 
@@ -135,7 +135,7 @@
         const record = full.record || {};
 
         record[clientKey] = record[clientKey] || {};
-        record[clientKey].liner = selectedOption;
+        record[clientKey].sanitizingsystem = selectedOption;
 
         const putRes = await fetch(binUrl, {
           method: "PUT",
