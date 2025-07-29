@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Select Pool Size</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      background-image: url('/logo.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 1700px;
+      background-attachment: fixed;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.7);
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+
+    h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.6em;
+  font-weight: 300;
+  color: #ffffff;
+  margin-bottom: 30px;
+  letter-spacing: 0.5px;
+}
+
+    .image-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin: 40px 0;
+    }
+
+    .image-grid img {
+      width: 220px;
+      height: auto;
+      border: 4px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .image-grid img:hover {
+      border-color: #bcddfb;
+    }
+
+    .selected {
+      border-color: #2ec4ff !important;
+    }
+
+    .label {
+      margin-top: 8px;
+      font-size: 1.2em;
+      font-family: 'Great Vibes', cursive;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 25px;
+      font-size: 1em;
+      border: none;
+      border-radius: 6px;
+      background-color: #2ec4ff;
+      color: #000;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .image-grid img {
+        width: 150px;
+      }
+
+      .label {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="overlay">
+  <h1>Select Your Pool Size</h1>
+  <div class="image-grid">
+    <div onclick="selectImage(this, '12x20')">
+      <img src="/selections/poolsizes/12x20.png" alt="12x20">
+      <div class="label">12x20</div>
+    </div>
+    <div onclick="selectImage(this, '12x24')">
+      <img src="/selections/poolsizes/12x24.png" alt="12x24">
+      <div class="label">12x24</div>
+    </div>
+    <div onclick="selectImage(this, '12x28')">
+      <img src="/selections/poolsizes/14x24.png" alt="12x28">
+      <div class="label">14x24</div>
+    </div>
+    <div onclick="selectImage(this, '14x28')">
+      <img src="/selections/poolsizes/14x28.png" alt="14x28">
+      <div class="label">14x28</div>
+    </div>
+    <div onclick="selectImage(this, '16x32')">
+      <img src="/selections/poolsizes/16x32.png" alt="16x32">
+      <div class="label">16x32</div>
+    </div>
+  </div>
+  <button onclick="saveSelection()">Save Selection</button>
+</div>
+
+<script>
+  const BIN_ID = "681df1438a456b79669a5caa";
+  const API_KEY = "$2a$10$bkmgi4X4rDzDliZUTJq3QOfRQOllUAzpMekm2xzZPa1BoHQvbYbIO";
+
+  let selectedOption = "";
+
+  function selectImage(element, label) {
+    document.querySelectorAll(".image-grid img").forEach(img => img.classList.remove("selected"));
+    element.querySelector("img").classList.add("selected");
+    selectedOption = label;
+  }
+
+  async function saveSelection() {
+    if (!selectedOption) {
+      alert("Please select a pool size.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+        headers: { 'X-Master-Key': API_KEY }
+      });
+      const result = await response.json();
+      const data = result.record || {};
+      data.davis = data.davis || {};
+      data.davis.pool_size = selectedOption;
+
+      await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Master-Key": API_KEY
+        },
+        body: JSON.stringify(data)
+      });
+
+      alert("Pool size saved!");
+      window.location.href = "index.html";
+    } catch (error) {
+      alert("Error saving selection: " + error.message);
+    }
+  }
+</script>
+</body>
+</html>
