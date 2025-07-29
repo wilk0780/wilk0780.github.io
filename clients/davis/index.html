@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Davis – Aqualis Pools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      background-image: url('/logo.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 1700px;
+      background-attachment: fixed;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      text-align: center;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.7);
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+
+    h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 5.0em;
+  font-weight: 300;
+  color: #ffffff;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+    h3 {
+      font-weight: 300;
+      color: #8ecff9;
+    }
+
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      font-size: 1.25em;
+      margin-bottom: 70px;
+    }
+
+    .link-list a {
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .link-list a:hover {
+      color: #ffffff;
+    }
+
+    .selections {
+      font-size: 1em;
+      color: #b3cde0;
+    }
+
+    .selections div {
+      margin: 10px 0;
+    }
+
+    @media (max-width: 600px) {
+  body {
+    background-size: 200vmin;
+    background-position: center;
+  }
+
+  h1 {
+    font-size: 3.8em;
+  }
+}
+
+      h1 {
+        font-size: 3.8em;
+      }
+
+      .link-list {
+        font-size: 1em;
+        gap: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="overlay">
+  <h1>Welcome, Robert & RaShae</h1>
+  <h3>Select your custom pool features below</h3>
+
+  <div class="link-list">
+    <a href="pool-size.html">Choose Pool Size</a>
+    <a href="coping.html">Choose Coping</a>
+    <a href="corner.html">Choose Corner Radius</a>
+    <a href="liner.html">Choose Liner</a>
+    <a href="steps.html">Choose Step Type</a>
+    <a href="heater.html">Choose Heater</a>
+    <a href="sanitize.html">Choose Sanitizing System</a>
+  </div>
+
+  <div class="selections">
+    <h3>Your Current Selections</h3>
+    <div><strong>Pool Size:</strong> <span id="sizeChoice">Loading...</span></div>
+    <div><strong>Coping:</strong> <span id="copingChoice">Loading...</span></div>
+    <div><strong>Corner Radius:</strong> <span id="cornerChoice">Loading...</span></div>
+    <div><strong>Liner:</strong> <span id="linerChoice">Loading...</span></div>
+    <div><strong>Step Type:</strong> <span id="stepChoice">Loading...</span></div>
+    <div><strong>Heater:</strong> <span id="heaterChoice">Loading...</span></div>
+    <div><strong>Sanitizing System:</strong> <span id="sanitizeChoice">Loading...</span></div>
+  </div>
+</div>
+
+<script>
+  const BIN_ID = "681df1438a456b79669a5caa";
+  const API_KEY = "$2a$10$bkmgi4X4rDzDliZUTJq3QOfRQOllUAzpMekm2xzZPa1BoHQvbYbIO";
+
+  async function loadSelections() {
+    try {
+      const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+        headers: { 'X-Master-Key': API_KEY }
+      });
+      const data = await response.json();
+      const record = data.record.davis || {};
+
+      document.getElementById('sizeChoice').textContent = record.pool_size || "Not selected";
+      document.getElementById('copingChoice').textContent = record.coping || "Not selected";
+      document.getElementById('cornerChoice').textContent = record.corner || "Not selected";
+      document.getElementById('linerChoice').textContent = record.liner || "Not selected";
+      document.getElementById('stepChoice').textContent = record.stair || "Not selected";
+      document.getElementById('heaterChoice').textContent = record.heater || "Not selected";
+      document.getElementById('sanitizeChoice').textContent = record.sanitizingsystem || "Not selected";
+    } catch (err) {
+      console.error("Failed to load selections:", err);
+    }
+  }
+
+  window.onload = loadSelections;
+</script>
+</body>
+</html>
