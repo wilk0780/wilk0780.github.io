@@ -123,7 +123,7 @@
         headers: { 'X-Master-Key': API_KEY }
       });
       const data = await response.json();
-      const record = data.record.rains || {};
+      const record = data.record.Hudson || {};
 
       document.getElementById('copingChoice').textContent = record.coping || "Not selected";
       document.getElementById('cornerChoice').textContent = record.corner || "Not selected";
