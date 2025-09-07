@@ -125,11 +125,11 @@
       const record = data.record.Hudson || {};
 
       document.getElementById('copingChoice').textContent = record.coping || "Not selected";
-      document.getElementById('cornerChoice').textContent = record.corner || "Not selected";
+      
       document.getElementById('linerChoice').textContent = record.liner || "Not selected";
-      document.getElementById('stepChoice').textContent = record.stair || "Not selected";
+      
       document.getElementById('heaterChoice').textContent = record.heater || "Not selected";
-      document.getElementById('sanitizeChoice').textContent = record.sanitizingsystem || "Not selected";
+      
     } catch (err) {
       console.error("Failed to load selections:", err);
     }
