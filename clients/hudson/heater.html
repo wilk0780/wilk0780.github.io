@@ -133,8 +133,8 @@
       .then(res => res.json())
       .then(data => {
         const record = data.record || {};
-        record.rains = record.rains || {};
-        record.rains.heater = selected;
+        record.Hudson = record.Hudson || {};
+        record.Hudson.heater = selected;
 
         return fetch("https://api.jsonbin.io/v3/b/681df1438a456b79669a5caa", {
           method: "PUT",
